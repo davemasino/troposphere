@@ -582,6 +582,7 @@ class Template(object):
         'Mappings': (dict, False),
         'Resources': (dict, False),
         'Outputs': (dict, False),
+        'Rules': (dict, False),
     }
 
     def __init__(self, Description=None, Metadata=None):  # noqa: N803
@@ -592,6 +593,7 @@ class Template(object):
         self.outputs = {}
         self.parameters = {}
         self.resources = {}
+        self.rules = {}
         self.version = None
         self.transform = None
 
@@ -711,6 +713,8 @@ class Template(object):
             t['AWSTemplateFormatVersion'] = self.version
         if self.transform:
             t['Transform'] = self.transform
+        if self.rules:
+            t['Rules'] = self.rules
         t['Resources'] = self.resources
 
         return encode_to_dict(t)
